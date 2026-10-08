@@ -36,7 +36,7 @@ pip install -r requirements.txt
 D:\3d_prediction\
 ├─ data\
 │  ├─ raw\
-│  │  └─ 3d_history.csv
+│  │  └─ 3d_history.txt
 │  └─ processed\
 ├─ models\
 ├─ results\
@@ -62,8 +62,7 @@ D:\3d_prediction\
 │  └─ config.yaml
 ├─ main.py
 ├─ predict.py
-├─ requirements.txt
-└─ run.bat
+└─ requirements.txt
 ```
 
 ## 三、你的数据格式
@@ -72,8 +71,7 @@ D:\3d_prediction\
 
 ```text
 期号,开奖日期,开奖号码
-2026001,2026/1/1,123
-2026002,2026/1/2,507
+2024138 2024-05-27 9 5 5
 ```
 
 因此程序已经按照这三个中文字段兼容。
@@ -81,11 +79,11 @@ D:\3d_prediction\
 把完整数据最终放到：
 
 ```text
-D:\3d_prediction\data\raw\3d_history.csv
+D:\3d_prediction\data\raw\3d_history.txt
 ```
 
 如果以后追加数据：
-1. 仍然只维护这个原始 CSV；
+1. 仍然只维护这个原始 txt；
 2. 保留同样的三列；
 3. 不要手工修改 processed、models、results；
 4. 重新运行 `python main.py`。
