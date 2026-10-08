@@ -1,0 +1,75 @@
+paths:
+  raw_data: data/raw/3d_history.txt
+  processed_dir: data/processed
+  models_dir: models
+  results_dir: results
+  backtest_dir: results/backtest
+  prediction_dir: results/predictions
+  report_dir: results/reports
+
+data:
+  # TXT 每行格式：期号 日期 百位 十位 个位
+  min_train_rows: 300
+  min_validation_rows: 100
+  min_test_rows: 100
+
+features:
+  windows: [5, 10, 20, 30, 50, 100, 200]
+  lag_periods: [1, 2, 3, 5, 10, 20]
+  max_window: 200
+
+walk_forward:
+  initial_train_ratio: 0.70
+  validation_ratio: 0.15
+  test_ratio: 0.15
+  step: 1
+  retrain_every: 10
+  min_train_rows: 300
+
+models:
+  random_seed: 42
+  lgbm:
+    n_estimators: 300
+    learning_rate: 0.03
+    num_leaves: 31
+    max_depth: -1
+    subsample: 0.9
+    colsample_bytree: 0.9
+    reg_lambda: 2.0
+    reg_alpha: 0.1
+  xgb:
+    n_estimators: 300
+    learning_rate: 0.03
+    max_depth: 5
+    min_child_weight: 3
+    subsample: 0.9
+    colsample_bytree: 0.9
+    reg_lambda: 2.0
+    reg_alpha: 0.1
+  catboost:
+    iterations: 300
+    learning_rate: 0.03
+    depth: 6
+    l2_leaf_reg: 5.0
+    verbose: false
+  lstm:
+    enabled: true
+    sequence_length: 30
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.15
+    epochs: 30
+    batch_size: 64
+    learning_rate: 0.001
+    min_rows: 500
+
+ensemble:
+  min_model_weight: 0.0
+  use_validation_weights: true
+
+calibration:
+  method: isotonic
+
+report:
+  top_k: [1, 3, 5]
+  number_top_n: 20
